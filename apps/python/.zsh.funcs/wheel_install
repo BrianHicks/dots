@@ -1,0 +1,2 @@
+pip wheel --wheel-dir=$HOME/wheelhouse --find-links=$HOME/wheelhouse $@
+pip install --use-wheel --no-index --find-links=$HOME/wheelhouse $@

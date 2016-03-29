@@ -7,4 +7,4 @@ if ! which stow > /dev/null; then
 fi
 
 echo "Stowing dotfiles for $app"
-stow --dir=apps --target=$HOME $app
+stow --dir=apps --target=$HOME --ignore=install.zsh -R $app

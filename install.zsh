@@ -1,16 +1,17 @@
 #!/usr/bin/env zsh
-HERE=~/zish
-
-fpath=($HERE/apps/zish/.zsh.funcs)
+fpath=($PWD/apps/zish/.zsh.funcs)
 
 autoload unstow-app brew-install
 
 # basic utilities needed for the rest of the installation
 brew-install stow
-brew-install zsh-syntax-highlighting
 
-unstow-app zsh
-
-## GRC ##
-brew-install grc
-unstow-app grc
+for app in apps/*; do
+    echo
+    echo "### $(basename $app) ###"
+    if [ -f $app/install.zsh ]; then
+        eval "$(cat $app/install.zsh)"
+    else
+        echo "app does not have install.sh, skipping"
+    fi
+done

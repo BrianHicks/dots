@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+if [ ! -d $1 ]; then
+    echo creating $1
+    mkdir $1
+else
+    echo $1 is already present
+fi

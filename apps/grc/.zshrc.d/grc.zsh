@@ -1,23 +1,41 @@
 #!/usr/bin/env zsh
-alias colourify="grc -es --colour=auto"
+if [[ "$TERM" != dumb ]] && (( $+commands[grc] )) ; then
+    # Prevent grc aliases from overriding zsh completions.
+    setopt COMPLETE_ALIASES
 
-alias as='colourify as'
-alias configure='colourify ./configure'
-alias df='colourify df'
-alias diff='colourify diff'
-alias dig='colourify dig'
-alias g++='colourify g++'
-alias gas='colourify gas'
-alias gcc='colourify gcc'
-alias head='colourify head'
-alias ifconfig='colourify ifconfig'
-alias ld='colourify ld'
-alias ls='colourify ls'
-alias make='colourify make'
-alias mount='colourify mount'
-alias mtr='colourify mtr'
-alias netstat='colourify netstat'
-alias ping='colourify ping'
-alias ps='colourify ps'
-alias tail='colourify tail'
-alias traceroute='colourify /usr/sbin/traceroute'
+    # Supported commands
+    cmds=(
+        cc \
+            configure \
+            cvs \
+            df \
+            diff \
+            dig \
+            gcc \
+            gmake \
+            ifconfig \
+            last \
+            ldap \
+            ls \
+            make \
+            mount \
+            mtr \
+            netstat \
+            ping \
+            ping6 \
+            ps \
+            traceroute \
+            traceroute6 \
+            wdiff \
+    );
+
+    # Set alias for available commands.
+    for cmd in $cmds ; do
+        if (( $+commands[$cmd] )) ; then
+            alias $cmd="grc --colour=auto $cmd"
+        fi
+    done
+
+    # Clean up variables
+    unset cmds cmd
+fi

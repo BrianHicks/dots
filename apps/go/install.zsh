@@ -9,6 +9,7 @@ source apps/go/.zshenv.d/go.zsh
 
 for package in github.com/mitchellh/gox \
                github.com/nsf/gocode \
+               github.com/rogpeppe/godef \
                golang.org/x/tools/cmd/benchcmp \
                golang.org/x/tools/cmd/callgraph \
                golang.org/x/tools/cmd/cover \

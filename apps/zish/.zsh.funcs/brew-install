@@ -4,5 +4,5 @@ app=$1
 if brew list | grep -q $app; then
     echo $app is already installed
 else
-    brew install $app
+    brew install $@
 fi

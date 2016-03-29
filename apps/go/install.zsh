@@ -19,6 +19,10 @@ for package in github.com/mitchellh/gox \
                golang.org/x/tools/cmd/gotype \
                golang.org/x/tools/cmd/oracle \
                ; do
-    echo installing/updating $package
-    go get -u $package
+    if [ -n "$UPDATE" ] || [ ! -d $GOPATH/src/$package ]; then
+       echo installing/updating $package
+       go get -u $package
+    else
+        echo $package already installed
+    fi
 done

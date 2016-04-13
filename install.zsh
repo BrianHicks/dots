@@ -1,6 +1,9 @@
 #!/usr/bin/env zsh
 fpath=($PWD/apps/zish/.zsh.funcs)
 
+# check out submodules
+git submodule init
+
 autoload unstow-app brew-install directory
 
 # basic utilities needed for the rest of the installation

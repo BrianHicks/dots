@@ -1,0 +1,2 @@
+apps/tmux/.tmux/resurrect
+apps/tmux/.tmux/plugins/tmux-*

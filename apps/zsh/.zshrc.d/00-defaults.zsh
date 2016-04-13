@@ -17,13 +17,6 @@ setopt appendhistory # append history to history file instead of replacing
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list '' 'm:{[:lower][:upper:]}={[:upper:][:lower:]}' '+l:|=* r:|='
 
-# history
-export HISTSIZE=2000
-export HISTFILE="$HOME/.history"
-export SAVEHIST=$HITSIZE
-setopt hist_ignore_all_dups
-setopt hist_ignore_space
-
 # keyboard shortcuts
 bindkey -e # emacs mode
 

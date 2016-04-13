@@ -1,0 +1,6 @@
+[submodule "apps/zsh/.zsh_extensions/zsh-history-substring-search"]
+	path = apps/zsh/.zsh_extensions/zsh-history-substring-search
+	url = https://github.com/zsh-users/zsh-history-substring-search.git
+[submodule "apps/tmux/.tmux/plugins/tpm"]
+	path = apps/tmux/.tmux/plugins/tpm
+	url = https://github.com/tmux-plugins/tpm

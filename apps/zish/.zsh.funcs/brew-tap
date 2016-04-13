@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+tap=$1
+
+if brew tap | grep -q $tap; then
+    echo $tap is already tapped
+else
+    brew tap $@
+fi

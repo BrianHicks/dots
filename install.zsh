@@ -4,7 +4,7 @@ fpath=($PWD/apps/zish/.zsh.funcs)
 # check out submodules
 git submodule init
 
-autoload unstow-app brew-install directory
+autoload unstow-app brew-install brew-tap directory
 
 # basic utilities needed for the rest of the installation
 brew-install stow
@@ -12,7 +12,19 @@ brew-install stow
 # system
 directory ~/code
 
+if [[ -n "$@" ]]; then
+    selected="$@"
+else
+    selected=""
+    for app in apps/*; do
+	selected+="$(basename $app) "
+    done
+fi
+
 for app in apps/*; do
+    if ! echo $selected | grep -q $(basename $app); then
+	continue
+    fi
     echo
     echo "### $(basename $app) ###"
 

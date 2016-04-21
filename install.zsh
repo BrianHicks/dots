@@ -4,10 +4,11 @@ fpath=($PWD/apps/zish/.zsh.funcs)
 # check out submodules
 git submodule init
 
-autoload unstow-app brew-install brew-tap directory
+autoload unstow-app brew-install npm-install brew-tap directory
 
 # basic utilities needed for the rest of the installation
 brew-install stow
+brew-install node
 
 # system
 directory ~/code

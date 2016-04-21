@@ -20,12 +20,15 @@ function! BuildDeoplete(info)
 endfunction
 
 Plug 'christoomey/vim-tmux-navigator'                            " navigate through vim and tmux windows with the same bindings
+Plug 'critiqjo/unite-fasd.vim'                                   " integration with unite
 Plug 'ddollar/nerdcommenter'                                     " (un)comment things
+Plug 'easymotion/vim-easymotion'                                 " hop around with <leader><leader>
 Plug 'godlygeek/tabular'                                         " line content up by regexes
 Plug 'jiangmiao/auto-pairs'                                      " automatically insert pairs (like `(` and `'`)
 Plug 'majutsushi/tagbar'                                         " navigate tags in the project. May replace with unit-tag or unite-outline?
 Plug 'mattn/emmet-vim'                                           " expand emmet-like expressions in HTML/XML
 Plug 'mattn/gist-vim'                                            " post gists
+Plug 'mattn/webapi-vim'                                          " used mattn/gist-vim
 Plug 'scrooloose/syntastic'                                      " syntax checks
 Plug 'Shougo/deoplete.nvim', { 'do': function('BuildDeoplete') } " autocompletion
 Plug 'Shougo/neosnippet.vim' | Plug 'Shougo/neosnippet-snippets' " snippet management
@@ -34,17 +37,16 @@ Plug 'Shougo/vimproc.vim', { 'do': 'make' }                      " asychronous s
 Plug 'tmux-plugins/vim-tmux-focus-events'                        " add focus events in tmux
 Plug 'tommcdo/vim-exchange'                                      " cx<motion> for swapping text
 Plug 'tpope/vim-dispatch'                                        " split tmux or whatever for testing (or whatever)
+Plug 'tpope/vim-eunuch'                                          " unix shell commands in vim, like :Remove and :Rename
 Plug 'tpope/vim-fugitive'                                        " git wrapper
 Plug 'tpope/vim-obsession'                                       " session management
 Plug 'tpope/vim-repeat'                                          " repeat operators (such as those in vim-surround)
 Plug 'tpope/vim-sensible'                                        " sensible defaults like incsearch
 Plug 'tpope/vim-surround'                                        " surround text with parens, quotes, etc
 Plug 'tpope/vim-unimpaired'                                      " pairs of mappings for navigation. I mostly use `[ ` and `] ` for inserting new lines
-Plug 'tpope/vim-eunuch'                                          " unix shell commands in vim, like :Remove and :Rename
 Plug 'tpope/vim-vinegar'                                         " better netrw - press `-` to navigate up
 Plug 'vim-airline/vim-airline'                                   " fancy status line
 Plug 'wellle/tmux-complete.vim'                                  " autocompletion from lines in tmux
-Plug 'easymotion/vim-easymotion'                                 " hop around with <leader><leader>
 
 " language-specific plugs
 Plug 'ElmCast/elm-vim'
@@ -186,6 +188,16 @@ nnoremap <silent> <leader>fb :<c-u>Unite -ignorecase -start-insert buffer<CR>
 nnoremap <silent> <leader>ff :<c-u>Unite -ignorecase -start-insert file_rec/git<CR>
 nnoremap <silent> <leader>fr :<c-u>UniteResume<CR>
 
+""" Unite-FASD
+
+" update vim when reading a file, but don't double count `x` when invoking
+" `nvim x`
+au VimEnter * let g:unite_fasd#read_only = 0
+
+let g:unite_fasd#fasd_path = '/usr/local/bin/fasd'
+
+nnoremap <silent> <leader>fa :<c-u>Unite -ignorecase -start-insert fasd<CR>
+
 " configuration for find by search, taken from `:help unite`
 if executable('ag')
     " Use ag (the silver searcher)
@@ -289,6 +301,20 @@ nnoremap <leader>rr :Dispatch<CR>
 " The primary action typically is the key repeated. So for example, `tt` could
 " test the entire project, or `gg` would go to the definition under the point.
 
+" before we do anything too crazy, let's set up some basic bindings to help
+" with discoverability. These will be active in every language, but will
+" display bindings for that language when triggered. If there are no bindings
+" under a given prefix, this will show that.
+nnoremap <localleader>a :map <localleader>a<cr>
+nnoremap <localleader>c :map <localleader>c<cr>
+nnoremap <localleader>d :map <localleader>d<cr>
+nnoremap <localleader>f :map <localleader>f<cr>
+nnoremap <localleader>g :map <localleader>g<cr>
+nnoremap <localleader>i :map <localleader>i<cr>
+nnoremap <localleader>r :map <localleader>r<cr>
+nnoremap <localleader>s :map <localleader>s<cr>
+nnoremap <localleader>t :map <localleader>t<cr>
+
 """ Go (via `fatih/vim-go`)
 
 " TODO: go#jobcontrol#StatusLine() in Airline
@@ -345,6 +371,7 @@ let g:deoplete#omni#input_patterns.elm = '\.'
 " Keybindings
 augroup elm
     autocmd!
+    autocmd FileType elm set sw=2
     autocmd FileType elm nmap <localleader>cb <Plug>(elm-make)
     autocmd FileType elm nmap <localleader>cc <Plug>(elm-make-main)
     autocmd FileType elm nmap <localleader>tb <Plug>(elm-test)

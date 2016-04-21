@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+for tool in $@; do
+    if npm list --depth=0 -g $tool >/dev/null; then
+        echo $tool is already installed
+    else
+        npm install -g $tool
+    fi
+done
